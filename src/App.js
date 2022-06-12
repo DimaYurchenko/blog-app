@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import React from 'react';
 import {
   Routes,
@@ -8,6 +8,9 @@ import {
   useNavigate,
   useLocation,
 } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button'
 
 const fakeAuth = () =>
   new Promise((resolve) => {
@@ -66,8 +69,6 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   return (
     <AuthProvider>
-      <h1>React Router</h1>
-
       <Navigation />
 
       <Routes>
@@ -100,17 +101,24 @@ const Navigation = () => {
   const { token, onLogout } = useAuth();
 
   return (
-    <nav>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink to="/dashboard">Dashboard</NavLink>
-      <NavLink to="/admin">Admin</NavLink>
-
-      {token && (
-        <button type="button" onClick={onLogout}>
-          Sign Out
-        </button>
-      )}
-    </nav>
+    <Navbar bg="light" expand='sm'>
+      <Container>
+        <Navbar.Brand>SuperBlogApp</Navbar.Brand>
+          <Nav className="container-fluid">
+            <Nav.Link>
+              <NavLink to="/home">Home</NavLink>
+            </Nav.Link>
+            <Nav.Link >
+              <NavLink to="/dashboard">Dashboard</NavLink>
+            </Nav.Link>
+            <Nav.Item className="ms-auto">
+              {token && (
+                <Button variant="primary" onClick={onLogout}>Sign Out</Button>
+              )}
+            </Nav.Item>
+          </Nav>
+      </Container>
+    </Navbar>
   );
 };
 
