@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "email": "foo@bar.com",
+      "password": "$2a$10$wsW3O7EXY/RnlksjtxtoruBjQh0A9idvUa0OTM4F3tX1OTKvIZenO",
+      "name": "foobar",
+      "id": 1
+    }
+  ],
+  "blogs": [
+    {
+      "title": "This is Title",
+      "userId": 1,
+      "id": 1
+    }
+  ],
+  "posts": [
+    {
+      "title": "This is title",
+      "contents": "This is a post",
+      "datetime": "12/06/2022",
+      "blogId": 1,
+      "userId": 1,
+      "id": 1
+    }
+  ]
+}
