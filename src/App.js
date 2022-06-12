@@ -1,4 +1,3 @@
-// import './App.css';
 import React from 'react';
 import {
   Routes,
@@ -82,15 +81,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="admin"
-          element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
-
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </AuthProvider>
@@ -123,16 +113,25 @@ const Navigation = () => {
 };
 
 const Home = () => {
-  const { onLogin } = useAuth();
+  const { token, onLogin } = useAuth();
+
+  if (token) {
+    return (
+      <Container>
+        You are signed in!
+        {/* TODO: display user info */}
+      </Container>
+    )
+  }
 
   return (
-    <>
+    <Container>
       <h2>Home (Public)</h2>
 
       <button type="button" onClick={onLogin}>
         Sign In
       </button>
-    </>
+    </Container>
   );
 };
 
@@ -140,19 +139,11 @@ const Dashboard = () => {
   const { token } = useAuth();
 
   return (
-    <>
+    <Container>
       <h2>Dashboard (Protected)</h2>
 
       <div>Authenticated as {token}</div>
-    </>
-  );
-};
-
-const Admin = () => {
-  return (
-    <>
-      <h2>Admin (Protected)</h2>
-    </>
+    </Container>
   );
 };
 
