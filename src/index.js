@@ -1,37 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  BrowserRouter,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
-import { QueryParamProvider } from 'use-query-params';
+import './index.css';
 import App from './App';
-
-
-const RouteAdapter = ({ children }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const adaptedHistory = React.useMemo(
-    () => ({
-      replace(location) {
-        navigate(location, { replace: true, state: location.state });
-      },
-      push(location) {
-        navigate(location, { replace: false, state: location.state });
-      },
-    }),
-    [navigate]
-  );
-  return children({ history: adaptedHistory, location });
-};
+import store from './app/store';
+import { Provider } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <QueryParamProvider ReactRouterRoute={RouteAdapter}>
+  <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </QueryParamProvider>
-  </BrowserRouter>,
+      <Toaster />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
