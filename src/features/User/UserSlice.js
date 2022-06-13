@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import jwt_decode from "jwt-decode";
 
 export const signupUser = createAsyncThunk(
   'users/signupUser',
   async ({ name, email, password }, thunkAPI) => {
     try {
       const response = await fetch(
-        'https://mock-user-auth-server.herokuapp.com/api/v1/users',
+        'http://localhost:3001/signup',
         {
           method: 'POST',
           headers: {
@@ -40,7 +41,7 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch(
-        'https://mock-user-auth-server.herokuapp.com/api/v1/auth',
+        'http://localhost:3001/signin',
         {
           method: 'POST',
           headers: {
@@ -56,7 +57,7 @@ export const loginUser = createAsyncThunk(
       let data = await response.json();
       console.log('response', data);
       if (response.status === 200) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.accessToken);
         return data;
       } else {
         return thunkAPI.rejectWithValue(data);
@@ -72,13 +73,15 @@ export const fetchUserBytoken = createAsyncThunk(
   'users/fetchUserByToken',
   async ({ token }, thunkAPI) => {
     try {
+      var decodedJWT = jwt_decode(token)
+      var userId = decodedJWT.sub
       const response = await fetch(
-        'https://mock-user-auth-server.herokuapp.com/api/v1/users',
+        `http://localhost:3001/users/${userId}`,
         {
           method: 'GET',
           headers: {
             Accept: 'application/json',
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         }

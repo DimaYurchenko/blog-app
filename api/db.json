@@ -1,10 +1,16 @@
 {
   "users": [
     {
+      "name": "foobar",
       "email": "foo@bar.com",
       "password": "$2a$10$wsW3O7EXY/RnlksjtxtoruBjQh0A9idvUa0OTM4F3tX1OTKvIZenO",
-      "name": "foobar",
       "id": 1
+    },
+    {
+      "email": "foooo@bar.com",
+      "password": "$2a$10$OAgY9FW3NdpfzE5Q9opODesXyMQ7l18wiTeSREUx.TKeqJwVOGJWu",
+      "name": "Dimaaa",
+      "id": 2
     }
   ],
   "blogs": [
