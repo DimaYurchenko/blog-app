@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userSelector, fetchUserBytoken, clearState } from "./UserSlice";
-import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as Logo } from "./logo.svg";
 
@@ -77,7 +76,7 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      <div class="container mx-auto grid gap-4 grid-cols-3 grid-rows-3">
+      <div class="container mx-auto grid gap-6 grid-cols-3 grid-rows-3">
         {blogs.map((data) => {
           return (
             <div class="p-20 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
