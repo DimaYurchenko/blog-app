@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userSelector, fetchUserBytoken, clearState } from './UserSlice';
 import Loader from 'react-loader-spinner';
@@ -27,6 +27,28 @@ const Dashboard = () => {
 
     history.push('/login');
   };
+  
+  const [blogs, setBlogs] = useState([])
+
+  useEffect(() => {
+    fetchBlogs()
+  }, [])
+
+  const fetchBlogs = async () => {
+    const response = await fetch(
+      'http://localhost:3001/blogs',
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    setBlogs(await response.json())
+  }
 
   return (
     <div className="container mx-auto">
@@ -44,7 +66,17 @@ const Dashboard = () => {
           >
             Log Out
           </button>
+
+          <h1>Available blogs</h1>
+          <ol>
+            {blogs.map((data) => {
+              return(
+                <li>{data.title} {data.id}</li>
+              )
+            })}
+          </ol>
         </Fragment>
+        
       )}
     </div>
   );
