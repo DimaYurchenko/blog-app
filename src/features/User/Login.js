@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, userSelector, clearState } from './UserSlice';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Login = ({}) => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
   const { isFetching, isSuccess, isError, errorMessage } = useSelector(
     userSelector
@@ -31,7 +31,7 @@ const Login = ({}) => {
 
     if (isSuccess) {
       dispatch(clearState());
-      history('/');
+      history.push('/');
     }
   }, [isError, isSuccess]);
 

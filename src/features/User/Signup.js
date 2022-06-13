@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { signupUser, userSelector, clearState } from './UserSlice';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const Signup = () => {
   const dispatch = useDispatch();
   const { register, errors, handleSubmit } = useForm();
-  const history = useNavigate();
+  const history = useHistory();
 
   const { isFetching, isSuccess, isError, errorMessage } = useSelector(
     userSelector
@@ -27,7 +27,7 @@ const Signup = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(clearState());
-      history('/');
+      history.push('/');
     }
 
     if (isError) {

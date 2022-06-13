@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userSelector, fetchUserBytoken, clearState } from './UserSlice';
-import { TailSpin } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
+import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
-  const history = useNavigate();
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const { isFetching, isError } = useSelector(userSelector);
@@ -18,20 +18,20 @@ const Dashboard = () => {
   useEffect(() => {
     if (isError) {
       dispatch(clearState());
-      history('/login');
+      history.push('/login');
     }
   }, [isError]);
 
   const onLogOut = () => {
     localStorage.removeItem('token');
 
-    history('/login');
+    history.push('/login');
   };
 
   return (
     <div className="container mx-auto">
       {isFetching ? (
-        <TailSpin width="100" />
+        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
       ) : (
         <Fragment>
           <div className="container mx-auto">
