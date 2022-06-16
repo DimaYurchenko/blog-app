@@ -2,7 +2,9 @@
 
 Created for learning purposes.
 
-Built with React, simple backend with authorisation provided by json-server-auth.
+Frontend built with React, Redux and Tailwindcss.
+
+Simple backend with authorisation provided by json-server-auth.
 
 Run both client and api:
 
